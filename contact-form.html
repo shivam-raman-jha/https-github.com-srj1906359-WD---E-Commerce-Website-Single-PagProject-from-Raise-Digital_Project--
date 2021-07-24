@@ -1,0 +1,168 @@
+<!--HTML Form Or Contact Us Page-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="SRJ">
+    <title>Contact Us</title>
+
+    <style>
+        .html_form {
+            padding: 50px;
+        }
+        
+        .html_form form {
+            margin: 20px;
+            padding: 20px;
+            box-shadow: 1px 1px 16px black;
+            border-radius: 10px;
+            width: 50%;
+            text-align: center;
+        }
+        
+        .html_form form h2 {
+            color: blue;
+            font-size: 25px;
+            font-family: Verdana;
+            /* font-weight: 2500;
+            font-style: normal; */
+        }
+        
+        .html_form form input {
+            width: 90%;
+            margin: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            border-left: 2px solid orange;
+        }
+        
+        .html_form form input:focus {
+            border-left: 4px solid blue;
+            border-right: 4px solid blue;
+            box-shadow: 1px 1px 8px black;
+        }
+        
+        .html_form form select {
+            width: 90%;
+            margin: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            border-left: 2px solid orange;
+        }
+        
+        .html_form form select:focus {
+            border-left: 4px solid blue;
+            border-right: 4px solid blue;
+            box-shadow: 1px 1px 8px black;
+        }
+        
+        .html_form form button {
+            padding: 10px;
+            margin-right: 15px;
+            border: none;
+            background-color: orange;
+            color: blue;
+            font-weight: bold;
+            font-family: verdana;
+            font-size: 16px;
+            border-radius: 5px;
+            box-shadow: 1px 1px 8px black;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <div class="html_form">
+        <form onsubmit="return validation()" name="Submit-google-sheet" method="POST">
+            <h2>Register</h2>
+
+            <input type="text" id="username" name="Name" placeholder="Full Name" /><br>
+            <span id="errorname" style="color:red;"></span>
+            <input type="email" id="email" name="Email" placeholder="Email ID" required/><br>
+            <span id="erroremail" style="color:red;"></span>
+            <input type="number" id="number" name="Number" placeholder="Contact Number" required/><br>
+            <span id="errornumber" style="color:red;"></span>
+
+            <select name="Branch" required>
+                <option>--Branch--</option>
+                <option>IT/CS</option>
+                <option>ECE</option>
+                <option>CSSE</option>
+                <option>ME</option>
+            </select>
+            <br>
+            <select name="Year" required>
+                <option>--Year--</option>
+                <option>1st</option>
+                <option>2nd</option>
+                <option>3rd</option>
+                <option>4th</option>
+            </select>
+            <br>
+            <input type="text" name="College Name" placeholder="Collage Name" required /><br><br>
+            <button type="submit">Register</button>
+            <button type="reset">Refresh</button>
+
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        function validation() {
+            var username = document.getElementById('username').value;
+            var email = document.getElementById('email').value;
+            var number = document.getElementById('number').value;
+
+            var usercheck = /^[A-Za-z]{3,30}$/;
+            var emailcheck = /^[A-A-Za-z_0-9.]{3,}@[A-Za-z]{3,}[.]{1}[A-Za-z.]{2,6}$/;
+            var numbercheck = /^[6789][0-9]{9}$/;
+
+            if (usercheck.test(username)) {
+                document.getElementById('errorname').innerHTML = " ";
+            } else {
+                document.getElementById('errorname').innerHTML = "**Invalid Name";
+                return false;
+            }
+
+            if (emailcheck.test(email)) {
+                document.getElementById('erroremail').innerHTML = " ";
+            } else {
+                document.getElementById('erroremail').innerHTML = "**Invalid Email";
+                return false;
+            }
+
+            if (numbercheck.test(number)) {
+                document.getElementById('errornumber').innerHTML = " ";
+            } else {
+                document.getElementById('errornumber').innerHTML = "**Invalid Number";
+                return false;
+            }
+        }
+    </script>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzmmUteLMp8RFagVilNxSdHF2tpnvrIA3k-BIY3KTcOZ7PW-txQSbRUzjQnHaOb4yHM/exec'
+        const form = document.forms['Submit-google-sheet']
+
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            fetch(scriptURL, {
+                    method: 'POST',
+                    body: new FormData(form)
+                })
+                .then(response => alert("Thanks for Contacting us..! We Will Contact You Soon..."))
+                .catch(error => console.error('Error!', error.message))
+        });
+    </script>
+
+</body>
+
+</html>
